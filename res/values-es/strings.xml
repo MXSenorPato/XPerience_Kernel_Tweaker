@@ -5,7 +5,7 @@
     <string name="no_root">No hay acceso root</string>
     <string name="no_busybox">Busybox no esta instalado</string>
     <string name="set_on_boot">Establecer en el inicio</string>
-    <string name="booted_up">%s booted up</string>
+    <string name="booted_up">%s Valores aplicados</string>
     <string name="loading">Cargando</string>
     <string name="info">Información</string>
     <string name="kernel">Kernel</string>
@@ -36,7 +36,7 @@
     <string name="total">Total</string>
 
     <!-- Time In State -->
-    <string name="time_in_state">Time In State</string>
+    <string name="time_in_state">Tiempo en el estado</string>
     <string name="unused_cpu_states">Estados del cpu sin usar</string>
     <string name="total_state_time">Total de Tiempo en el estado</string>
     <string name="deep_sleep">Sueño profundo</string>
@@ -133,7 +133,7 @@
     <string name="backing_up">Copia de seguridad</string>
     <string name="restore">Restaurar</string>
     <string name="restoring">Restaurando</string>
-    <string name="overwrite">This will overwrite %s</string>
+    <string name="overwrite">Va a ser sobreescrito %s</string>
 
     <!-- Build prop -->
     <string name="build_prop">Build.prop</string>
