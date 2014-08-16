@@ -94,7 +94,7 @@
     <string name="External_read_ahead">External Storage Read-ahead</string>
 
     <!-- Low Memory Killer -->
-    <string name="low_memory_killer"></string>
+    <string name="low_memory_killer">Lowmemorykiller</string>
     <string name="forground_app">Aplicaciones de primer plano</string>
     <string name="visbile_app">Aplicaciones visibles</string>
     <string name="secondary_server">Servidor Secundario</string>

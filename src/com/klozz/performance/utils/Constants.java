@@ -99,6 +99,7 @@ public interface Constants {
     public final String CPU_MPDECISION_BINARY = "/system/bin/mpdecision";
     public final String CPU_MPDEC = "mpdecision";
     public final String CPU_INTELLI = "Intelli_plug"; /*Added support of inelli_plug of Faux I need investigate more*/
+    public final String CPU_INTELLI_BINARY = "/sys/module/intelli_plug";
 
     public final String GPU_GENERIC_GOVERNORS = "performance powersave ondemand simple";
 
