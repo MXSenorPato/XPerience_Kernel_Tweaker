@@ -23,7 +23,7 @@ import android.app.Activity;
 
 public class CommandControl implements Constants {
 
-    public final String fileSplit = "xperiencecom";
+    public final String fileSplit = "qwerfghuioplmbb";
 
     public enum CommandType {
         GENERIC, CPU
