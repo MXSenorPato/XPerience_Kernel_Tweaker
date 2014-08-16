@@ -24,8 +24,8 @@ public class RootHelper implements Constants {
     private String recoveryPartition;
     private String fotaPartition;
 
-    private String[] bootPartitionNames = new String[] { "boot", "kernel", "LX" };
-    private String[] recoveryPartitionNames = new String[] { "recovery", "SS" };
+    private String[] bootPartitionNames = new String[] { "boot", "kernel", "LX", "LNX" };
+    private String[] recoveryPartitionNames = new String[] { "recovery", "SS", "SOS" };
     private String[] fotaPartitionNames = new String[] { "FOTAKernel" };
 
     public void runCommand(String command) {
