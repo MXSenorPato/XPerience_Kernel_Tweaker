@@ -98,6 +98,7 @@ public interface Constants {
     public final String CPU_MC_POWER_SAVING = "/sys/devices/system/cpu/sched_mc_power_savings";
     public final String CPU_MPDECISION_BINARY = "/system/bin/mpdecision";
     public final String CPU_MPDEC = "mpdecision";
+    public final String CPU_INTELLI = "Intelli_plug"; /*Added support of inelli_plug of Faux I need investigate more*/
 
     public final String GPU_GENERIC_GOVERNORS = "performance powersave ondemand simple";
 
