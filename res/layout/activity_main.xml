@@ -16,7 +16,9 @@
         android:choiceMode="singleChoice"
         android:orientation="vertical"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp" >
+        android:paddingRight="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
 
         <TextView
             style="?android:attr/listSeparatorTextViewStyle"
