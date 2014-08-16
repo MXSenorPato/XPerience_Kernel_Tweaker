@@ -13,7 +13,7 @@ include $(BUILD_PACKAGE)
 ##################################################
 include $(CLEAR_VARS)
 
-LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := RootTools:libs/RootTools-3.4.jar GraphView:libs/GraphView-3.1.2.jar
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := RootTools:libs/RootTools-3.4.jar GraphView:libs/GraphView-3.1.2.jar support:support-v4-19.0.0.jar
 
 include $(BUILD_MULTI_PREBUILT)
 
