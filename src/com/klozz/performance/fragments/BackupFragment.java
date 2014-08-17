@@ -40,7 +40,7 @@ import android.widget.LinearLayout;
 
 public class BackupFragment extends PreferenceFragment implements Constants {
 
-    private final String nameSplit = "XPerience";
+    private final String nameSplit = "owiefewopkewo";
 
     private PreferenceScreen root;
     private Preference mBoot, mRecovery, mFota;

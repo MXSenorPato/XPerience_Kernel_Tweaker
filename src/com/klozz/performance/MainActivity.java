@@ -102,7 +102,7 @@ public class MainActivity extends Activity implements Constants {
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                    int position, long id) {
                 selectItem(position);
             }
         });
@@ -138,12 +138,6 @@ public class MainActivity extends Activity implements Constants {
     private void setFragments() {
         items.clear();
 
-        // Check GPU controls are supported
-        boolean addGpu = false;
-        for (String[] array : GPU_ARRAY)
-            for (String file : array)
-                if (!addGpu) if (mUtils.existFile(file)) addGpu = true;
-
         // Information
         items.add(new HeaderItem(getString(R.string.info)));
         items.add(new ListItem(getString(R.string.time_in_state),
@@ -156,14 +150,16 @@ public class MainActivity extends Activity implements Constants {
                 .add(new HeaderItem(getString(R.string.fancy_stats)));
         // Cpu stats only supports max. 8 cores
         if (cpuHelper.getCoreCount() < 9) items.add(new ListItem(
-                getString(R.string.cpu_stats), mCpuStatsFragment));
+                getString(R.string.cpu_stats), mCPUStatsFragment));
         if (mMemoryStatsFragment.hasSupport()) items.add(new ListItem(
                 getString(R.string.memory_stats), mMemoryStatsFragment));
 
         // Kernel
         items.add(new HeaderItem(getString(R.string.kernel)));
         items.add(new ListItem(getString(R.string.cpu), mCPUFragment));
-        if (addGpu) items.add(new ListItem(getString(R.string.gpu),
+        if (cpuVoltageHelper.hasCpuVoltage()) items.add(new ListItem(
+                getString(R.string.cpu_voltage), mCPUVoltageFragment));
+        if (gpuHelper.hasGpu()) items.add(new ListItem(getString(R.string.gpu),
                 mGPUFragment));
         items.add(new ListItem(getString(R.string.io_scheduler),
                 mIOSchedulerFragment));
@@ -230,26 +226,37 @@ public class MainActivity extends Activity implements Constants {
         }
 
         @Override
-        protected void onPostExecute(Bundle result) {
-            String[] files = { String.format(CPU_MAX_FREQ, 0),
-                    String.format(CPU_MIN_FREQ, 0),
-                    String.format(CPU_SCALING_GOVERNOR, 0) };
-            for (String file : files)
-                rootHelper.runCommand("chmod 777 " + file);
+        protected void onPostExecute(final Bundle result) {
 
-            setFragments();
-            setDrawer();
+            new Thread() {
+                public void run() {
+                    String[] files = { String.format(CPU_MAX_FREQ, 0),
+                            String.format(CPU_MIN_FREQ, 0),
+                            String.format(CPU_SCALING_GOVERNOR, 0) };
+                    for (String file : files)
+                        rootHelper.runCommand("chmod 777 " + file);
 
-            if (result == null) selectItem(curposition);
+                    setFragments();
 
-            mDrawer.setBackgroundColor(getResources().getColor(
-                    android.R.color.background_dark));
-            getActionBar().show();
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            setDrawer();
 
-            progress.hide();
+                            if (result == null) selectItem(curposition);
 
-            mDrawerToggle.syncState();
-            mDrawerLayout.openDrawer(mDrawer);
+                            mDrawer.setBackgroundColor(getResources().getColor(
+                                    android.R.color.background_dark));
+                            getActionBar().show();
+
+                            mDrawerToggle.syncState();
+                            mDrawerLayout.openDrawer(mDrawer);
+
+                            progress.hide();
+                        }
+                    });
+                }
+            }.start();
+
             super.onPostExecute(result);
         }
 

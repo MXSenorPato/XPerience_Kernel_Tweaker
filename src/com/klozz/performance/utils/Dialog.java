@@ -40,9 +40,9 @@ import android.widget.TextView;
 public class Dialog implements Constants {
 
     public void showDialogList(final String[] modifiedItems,
-            final String[] items, final String file,
-            final DialogReturn dialogreturn, final CommandType command,
-            final Activity activity) {
+                               final String[] items, final String file,
+                               final DialogReturn dialogreturn, final CommandType command,
+                               final Activity activity) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setItems(modifiedItems, new DialogInterface.OnClickListener() {
@@ -55,8 +55,8 @@ public class Dialog implements Constants {
     }
 
     public void showDialogGeneric(final String file, String value,
-            final DialogReturn dialogreturn, final CommandType command,
-            final Activity activity) {
+                                  final DialogReturn dialogreturn, final boolean apply, int input,
+                                  final CommandType command, final Activity activity) {
 
         LinearLayout layout = new LinearLayout(activity);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -66,6 +66,8 @@ public class Dialog implements Constants {
         editor.setGravity(Gravity.CENTER);
         editor.setText(value);
 
+        if (input != 0) editor.setInputType(input);
+
         layout.addView(editor);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -74,21 +76,21 @@ public class Dialog implements Constants {
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {}
+                                                int which) {}
                         })
                 .setPositiveButton(android.R.string.ok, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mCommandControl.runCommand(editor.getText().toString(),
-                                file, command, activity);
+                        if (apply) mCommandControl.runCommand(editor.getText()
+                                .toString(), file, command, activity);
                         dialogreturn.dialogReturn(editor.getText().toString());
                     }
                 }).show();
     }
 
     public void showSeekBarDialog(final String[] modifiedvalues,
-            final String[] values, String currentvalue,
-            final DialogReturn dialogreturn, final Activity activity) {
+                                  final String[] values, String currentvalue,
+                                  final DialogReturn dialogreturn, final Activity activity) {
 
         LayoutInflater inflater = LayoutInflater.from(activity);
         View view = inflater.inflate(R.layout.dialog_seekbar, null);
@@ -116,7 +118,7 @@ public class Dialog implements Constants {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress,
-                    boolean fromUser) {
+                                          boolean fromUser) {
                 text.setText(modifiedvalues[progress]);
             }
         });
@@ -141,7 +143,7 @@ public class Dialog implements Constants {
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {}
+                                                int which) {}
                         })
                 .setPositiveButton(android.R.string.ok, new OnClickListener() {
                     @Override

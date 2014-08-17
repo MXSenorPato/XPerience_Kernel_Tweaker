@@ -55,21 +55,21 @@ public class BuildpropFragment extends Fragment implements Constants {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
         list = new ListView(getActivity());
         list.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                    int position, long id) {
                 addKeyDialog(keys.get(position), values.get(position), true);
             }
         });
         list.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
-                    int position, long id) {
+                                           int position, long id) {
                 deleteDialog(keys.get(position), values.get(position));
                 return true;
             }
@@ -80,24 +80,30 @@ public class BuildpropFragment extends Fragment implements Constants {
     }
 
     private void refresh() {
-        keys.clear();
-        values.clear();
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                keys.clear();
+                values.clear();
 
-        String[] props = mUtils.readFile(BUILD_PROP).split("\\r?\\n");
+                String[] props = mUtils.readFile(BUILD_PROP).split("\\r?\\n");
 
-        if (props.length > 1) {
-            for (String prop : props)
-                if (!prop.isEmpty() && !prop.startsWith("#")) {
-                    String[] propArray = prop.split("=");
-                    keys.add(propArray[0]);
-                    String value = propArray.length < 2 ? "" : propArray[1];
-                    values.add(value + "\n");
+                if (props.length > 1) {
+                    for (String prop : props)
+                        if (!prop.isEmpty() && !prop.startsWith("#")) {
+                            String[] propArray = prop.split("=");
+                            keys.add(propArray[0]);
+                            String value = propArray.length < 2 ? ""
+                                    : propArray[1];
+                            values.add(value + "\n");
+                        }
+
+                    ArrayAdapter<String> adapter = new GenericListView(
+                            getActivity(), keys, values);
+                    list.setAdapter(adapter);
                 }
-
-            ArrayAdapter<String> adapter = new GenericListView(getActivity(),
-                    keys, values);
-            list.setAdapter(adapter);
-        }
+            }
+        });
     }
 
     private void backup() {
@@ -110,7 +116,7 @@ public class BuildpropFragment extends Fragment implements Constants {
     }
 
     private void addKeyDialog(final String key, final String value,
-            final boolean modify) {
+                              final boolean modify) {
         LinearLayout dialogLayout = new LinearLayout(getActivity());
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         dialogLayout.setGravity(Gravity.CENTER);
@@ -132,13 +138,13 @@ public class BuildpropFragment extends Fragment implements Constants {
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {}
+                                                int which) {}
                         })
                 .setPositiveButton(getString(android.R.string.ok),
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {
+                                                int which) {
                                 if (modify) overwrite(key.trim(), value.trim(),
                                         keyEdit.getText().toString().trim(),
                                         valueEdit.getText().toString().trim());
@@ -155,13 +161,13 @@ public class BuildpropFragment extends Fragment implements Constants {
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {}
+                                                int which) {}
                         })
                 .setPositiveButton(getString(android.R.string.ok),
                         new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,
-                                    int which) {
+                                                int which) {
                                 overwrite(key.trim(), value.trim(),
                                         "#" + key.trim(), value.trim());
                             }
@@ -200,7 +206,7 @@ public class BuildpropFragment extends Fragment implements Constants {
     }
 
     private void overwrite(final String oldkey, final String oldValue,
-            final String newKey, final String newValue) {
+                           final String newKey, final String newValue) {
         new Thread() {
             public void run() {
                 try {

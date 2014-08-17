@@ -24,6 +24,7 @@
     <string name="mhz">MHz</string>
     <string name="kb">kB</string>
     <string name="mb">MB</string>
+    <string name="mv">mV</string>
 
     <!-- Fancy Stats -->
     <string name="fancy_stats">Estadísticas</string>
@@ -68,6 +69,9 @@
     <string name="hotplug">Hotplug</string>
     <string name="mpdecision">MPDecision</string>
     <string name="mpdecision_summary">Solución de conexión en caliente(hotplug) de QCOM. Usted puede tener problemas con el cambio de frecuencias cuando está habilitado.</string>
+
+    <!-- CPU Voltage -->
+    <string name="cpu_voltage">Voltage de CPU</string>
 
     <!-- GPU -->
     <string name="gpu">GPU</string>

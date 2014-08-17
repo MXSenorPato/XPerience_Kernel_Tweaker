@@ -24,7 +24,8 @@ import android.os.Environment;
 import com.klozz.performance.fragments.BackupFragment;
 import com.klozz.performance.fragments.BuildpropFragment;
 import com.klozz.performance.fragments.CPUFragment;
-import com.klozz.performance.fragments.CpuStatsFragment;
+import com.klozz.performance.fragments.CPUStatsFragment;
+import com.klozz.performance.fragments.CPUVoltageFragment;
 import com.klozz.performance.fragments.CustomCommanderFragment;
 import com.klozz.performance.fragments.GPUFragment;
 import com.klozz.performance.fragments.IOSchedulerFragment;
@@ -34,6 +35,7 @@ import com.klozz.performance.fragments.MemoryStatsFragment;
 import com.klozz.performance.fragments.TimeInStateFragment;
 import com.klozz.performance.fragments.VirtualMachineFragment;
 import com.klozz.performance.helpers.CPUHelper;
+import com.klozz.performance.helpers.CPUVoltageHelper;
 import com.klozz.performance.helpers.GPUHelper;
 import com.klozz.performance.helpers.IOHelper;
 import com.klozz.performance.helpers.LowMemoryKillerHelper;
@@ -62,7 +64,8 @@ public interface Constants {
     public final BackupFragment mBackupFragment = new BackupFragment();
     public final BuildpropFragment mBuildpropFragment = new BuildpropFragment();
     public final CPUFragment mCPUFragment = new CPUFragment();
-    public final CpuStatsFragment mCpuStatsFragment = new CpuStatsFragment();
+    public final CPUStatsFragment mCPUStatsFragment = new CPUStatsFragment();
+    public final CPUVoltageFragment mCPUVoltageFragment = new CPUVoltageFragment();
     public final CustomCommanderFragment mCustomCommanderFragment = new CustomCommanderFragment();
     public final GPUFragment mGPUFragment = new GPUFragment();
     public final KernelInformationFragment mKernelInformationFragment = new KernelInformationFragment();
@@ -77,6 +80,7 @@ public interface Constants {
     public final Utils mUtils = new Utils();
 
     public final CPUHelper cpuHelper = new CPUHelper();
+    public final CPUVoltageHelper cpuVoltageHelper = new CPUVoltageHelper();
     public final GPUHelper gpuHelper = new GPUHelper();
     public final IOHelper ioHelper = new IOHelper();
     public final LowMemoryKillerHelper lowmemorykillerHelper = new LowMemoryKillerHelper();
@@ -101,6 +105,10 @@ public interface Constants {
     public final String CPU_INTELLI = "Intelli_plug"; /*Added support of inelli_plug of Faux I need investigate more*/
     public final String CPU_INTELLI_BINARY = "/sys/module/intelli_plug";
 
+    // CPU Voltage
+    public final String CPU_VOLTAGE = "/sys/devices/system/cpu/cpu%d/cpufreq/UV_mV_table";
+
+    //GPU requeriments and configs
     public final String GPU_GENERIC_GOVERNORS = "performance powersave ondemand simple";
 
     public final String GPU_CUR_KGSL2D0_QCOM_FREQ = "/sys/devices/platform/kgsl-2d0.0/kgsl/kgsl-2d0/gpuclk";
@@ -148,6 +156,7 @@ public interface Constants {
             GPU_3D_MAX_FREQ_ARRAY, GPU_3D_AVAILABLE_FREQS_ARRAY,
             GPU_3D_SCALING_GOVERNOR_ARRAY };
 
+    //i/O Scheduling
     public final String IO_INTERNAL_SCHEDULER = "/sys/block/mmcblk0/queue/scheduler";
     public final String IO_EXTERNAL_SCHEDULER = "/sys/block/mmcblk1/queue/scheduler";
     public final String IO_INTERNAL_SCHEDULER_TUNABLE = "/sys/block/mmcblk0/queue/iosched";
@@ -155,7 +164,9 @@ public interface Constants {
     public final String IO_INTERNAL_READ_AHEAD = "/sys/block/mmcblk0/queue/read_ahead_kb";
     public final String IO_EXTERNAL_READ_AHEAD = "/sys/block/mmcblk1/queue/read_ahead_kb";
 
+    //LOWMEMORYKILLER
     public final String LMK_MINFREE = "/sys/module/lowmemorykiller/parameters/minfree";
 
+    //Virtual Machine
     public final String VM_PATH = "/proc/sys/vm";
 }
